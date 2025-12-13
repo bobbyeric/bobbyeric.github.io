@@ -15,7 +15,7 @@ body{
       rgba(10,9,8,0.65),
       rgba(10,9,8,0.65)
     ),
-    url("img/background.jpg") center / cover no-repeat fixed;
+    url("img/background-desktop.jpg") center / cover no-repeat fixed;
 }
 
 
@@ -364,6 +364,7 @@ body::before{
   transform: translateY(-1px);
 }
 
+/* 手机：Archive 每行两张 */
 @media (max-width: 768px){
   .grid{
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -378,6 +379,19 @@ body::before{
     border-radius: 6px;
   }
 }
+
+@media (max-width: 768px){
+  body{
+    background:
+      linear-gradient(
+        rgba(10,9,8,0.55),
+        rgba(10,9,8,0.9)
+      ),
+      url("img/background-mobile.jpg") center / cover no-repeat;
+  }
+}
+
+
 
 
 
