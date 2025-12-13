@@ -11,10 +11,27 @@
 
 <!-- HERO : 最新专辑 -->
 <section class="hero">
-  <img src="img/hero-fallbv.jpg" alt="Fall (Bobby’s Version)">
-  <div class="hero-text">
+  <picture>
+    <!-- 手机用竖图 -->
+    <source
+      media="(max-width: 768px)"
+      srcset="img/hero-mobile.jpg"
+    />
+    <!-- 桌面用横图 -->
+    <img
+      src="img/hero-desktop.jpg"
+      class="hero__bg"
+      alt="Fall (Bobby's Version)"
+    />
+  </picture>
+
+  <div class="hero__content">
+    <h1 class="hero__title">Fall (Bobby’s Version)</h1>
+    <div class="hero__meta">2025-11-22</div>
+    <a class="hero__btn" href="Fall_Bobbys_Version.zip">Download</a>
   </div>
 </section>
+
 
 <!-- DOWNLOAD -->
 <section class="section">
