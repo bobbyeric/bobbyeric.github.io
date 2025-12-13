@@ -1,179 +1,307 @@
-body{
-  margin:0;
-  background:#0b0b0c;
-  color:#e9e9ea;
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial;
+/* ---------------------------------
+   GLOBAL & TYPOGRAPHY
+   --------------------------------- */
+body {
+  margin: 0;
+  background: #0b0b0c;
+  color: #e9e9ea;
+  /* 尝试使用一个更具官网感的、干净的字体栈 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
 }
-
-.hero{
-  position:relative;
+ 
+.wrap {
+  width: 90%;
+  max-width: 1200px; /* 略微加大最大宽度 */
+  margin: auto;
 }
-
-.hero img{
-  width:100%;
-  display:block;
+ 
+.section {
+  padding: 80px 0;
+  border-top: 1px solid #222;
 }
-
-.hero-text{
-  position:absolute;
-  bottom:12%;
-  left:8%;
+ 
+.section-title {
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  text-align: center; /* 标题居中更显大气 */
 }
-
-.hero-text h1{
-  margin:0;
-  font-size:48px;
-  letter-spacing:4px;
+ 
+/* ---------------------------------
+   HEADER / NAVIGATION
+   --------------------------------- */
+.header {
+  position: absolute; /* 悬浮在 HERO 图上 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  padding: 20px 0;
 }
-
-.hero-text p{
-  margin-top:8px;
-  font-size:14px;
-  letter-spacing:3px;
-  opacity:.8;
+ 
+.header__wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.section{
-  padding:80px 0;
-  border-top:1px solid #222;
+ 
+.header__logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #fff;
 }
-
-.wrap{
-  width:90%;
-  max-width:1100px;
-  margin:auto;
+ 
+.header__nav-link {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1px;
 }
-
-.center{
-  text-align:center;
+ 
+.header__nav-link:hover {
+  opacity: 1;
+  border-bottom: 1px solid #fff;
 }
-
-.date{
-  color:#aaa;
-}
-
-.download{
-  display:inline-block;
-  margin-top:24px;
-  color:white;
-  text-decoration:none;
-  border-bottom:1px solid white;
-  letter-spacing:2px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:24px;
-}
-
-.card img{
-  width:100%;
-  display:block;
-}
-
-.meta{
-  margin-top:8px;
-}
-
-.title{
-  letter-spacing:.5px;
-}
-
-.year{
-  font-size:12px;
-  color:#888;
-}
-
-.footer{
-  padding:40px 0;
-  text-align:center;
-  font-size:12px;
-  color:#888;
-}
-
-.footer a{
-  color:#888;
-  text-decoration:none;
-}
-
-.copy{
-  margin-top:8px;
-}
-
-/* ===== Hero 全屏（手机 / 桌面通用） ===== */
-
+ 
+/* ---------------------------------
+   HERO SECTION
+   --------------------------------- */
 .hero {
-  position: relative;
-  width: 100%;
-  height: 100svh;        /* 关键：手机真全屏 */
-  min-height: 100svh;
-  overflow: hidden;
-  background: #000;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* 使用 vh 替代 svh 保证兼容性 */
+  min-height: 500px;
+  overflow: hidden;
+  background: #000;
 }
-
+ 
 .hero picture,
 .hero img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
-
+ 
 .hero__bg {
-  object-fit: cover;    /* 必须是 cover */
-  object-position: center;
+  object-fit: cover;
+  object-position: center 30%; /* 调整焦点位置 */
 }
-
+ 
 /* 渐变遮罩（官网感来源） */
 .hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.15),
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.85)
-  );
-  z-index: 1;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(0, 0, 0, 0.9) 100% /* 底部更深，突出文字 */
+  );
+  z-index: 1;
 }
-
+ 
 /* 文案层 */
 .hero__content {
-  position: relative;
-  z-index: 2;
-
-  height: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 14px;
-
-  padding: clamp(20px, 4vw, 48px);
-  color: #fff;
+  position: relative;
+  z-index: 2;
+ 
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 内容底部对齐 */
+  gap: 18px;
+ 
+  padding: clamp(20px, 4vw, 48px);
+  padding-bottom: 80px; /* 底部留白 */
+  color: #fff;
 }
-
+ 
 .hero__title {
-  font-size: clamp(28px, 4vw, 52px);
-  line-height: 1.05;
-  font-weight: 700;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+  font-weight: 900; /* 更粗的字重 */
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 0;
 }
-
+ 
 .hero__meta {
-  font-size: 16px;
-  opacity: 0.85;
+  font-size: clamp(16px, 2vw, 24px);
+  opacity: 0.85;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
-
+ 
+/* ⭐️ Hero 下载按钮 */
 .hero__btn {
-  display: inline-block;
-  width: fit-content;
-  padding: 10px 18px;
-  border: 1px solid rgba(255,255,255,0.7);
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 12px 24px;
+  border: 2px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s;
+}
+ 
+.hero__btn:hover {
+  background-color: #fff;
+  color: #0b0b0c;
+}
+ 
+/* ---------------------------------
+   ARCHIVE SECTION
+   --------------------------------- */
+.grid {
+  display: grid;
+  /* 保持响应式网格，但最小宽度略大 */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+}
+ 
+.card {
+  display: block; /* 确保整个卡片区域可点击 */
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+ 
+.card:hover {
+  transform: translateY(-5px); /* 悬停上浮效果 */
+}
+ 
+.card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1 / 1; /* 确保封面图是正方形 */
+  object-fit: cover;
+  transition: opacity 0.3s;
+}
+ 
+.card:hover img {
+  opacity: 0.8;
+}
+ 
+.meta {
+  margin-top: 12px;
+  padding: 0 5px;
+}
+ 
+.title {
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+ 
+.year {
+  font-size: 13px;
+  color: #aaa;
+}
+ 
+/* ⭐️ Archive 下载链接样式 */
+.download-link {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0; /* 默认隐藏 */
+  transition: opacity 0.3s;
+}
+ 
+.card:hover .download-link {
+  opacity: 1; /* 悬停时显示 */
+}
+ 
+/* ---------------------------------
+   FOOTER
+   --------------------------------- */
+.footer {
+  padding: 50px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  border-top: 1px solid #222;
+}
+ 
+.footer__social {
+  margin-bottom: 15px;
+}
+ 
+.footer__social a {
+  color: #aaa;
+  font-size: 24px;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+ 
+.footer__social a:hover {
+  color: #fff;
+}
+ 
+.copy {
+  margin-top: 5px;
+  font-size: 12px;
+}
+ 
+.footer__nav-link {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+ 
+.footer__nav-link:hover {
+  color: #aaa;
+}
+ 
+/* ---------------------------------
+   MEDIA QUERIES (响应式)
+   --------------------------------- */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 0;
+  }
+ 
+  .header__wrap {
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  .header__nav {
+    display: flex;
+    justify-content: center;
+  }
+ 
+  .header__nav-link {
+    margin: 0 10px;
+  }
+ 
+  .hero__content {
+    padding-bottom: 40px;
+  }
 }
