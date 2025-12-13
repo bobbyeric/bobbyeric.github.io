@@ -51,10 +51,19 @@ window.addEventListener("scroll", () => {
   bgm.volume = Math.max(0.25, vol);
 });
 if (localStorage.getItem("bgm") === "on") {
-  bgm.play().then(() => fadeTo(0.5)).catch(() => {});
-  toggle.textContent = "Sound: On";
-  isPlaying = true;
+  bgm.play().then(() => {
+    fadeTo(0.5);
+    toggle.textContent = "Sound On";
+    toggle.classList.add("playing");
+    isPlaying = true;
+  }).catch(() => {
+    // 如果浏览器拦了，不强行设状态
+    toggle.textContent = "Sound Off";
+    toggle.classList.remove("playing");
+    isPlaying = false;
+  });
 }
+
 localStorage.setItem("bgm", isPlaying ? "on" : "off");
 const hero = document.querySelector(".hero");
 

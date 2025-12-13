@@ -397,26 +397,28 @@ body::before{
   right: 18px;
   z-index: 4;
 
-  padding: 8px 14px;
-  border-radius: 999px;
+  background: none;
+  border: none;
+  padding: 0;
 
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255,255,255,.25);
-  color: rgba(255,255,255,.85);
-
+  color: rgba(255,255,255,.55);
   font-size: 12px;
-  letter-spacing: .08em;
+  letter-spacing: .14em;
   text-transform: uppercase;
 
   cursor: pointer;
+
+  transition: color .2s ease, opacity .2s ease;
 }
 
+/* hover / active 才稍微显形 */
 .sound-toggle:hover{
-  background: rgba(255,255,255,.12);
-  color: #fff;
+  color: rgba(255,255,255,.9);
+}
+
+/* 播放中：更“确定”的存在感 */
+.sound-toggle.playing{
+  color: rgba(255,255,255,.85);
 }
 
 
