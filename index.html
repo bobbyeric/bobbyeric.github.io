@@ -26,6 +26,7 @@
 
   <!-- HERO -->
   <section class="hero">
+    <button id="soundToggle" class="sound-toggle">Sound: Off</button>
     <picture>
       <source media="(max-width: 768px)" srcset="img/hero-mobile.jpg">
       <img src="img/hero-desktop.jpg" alt="Fall (Bobby's Version)">
@@ -331,6 +332,10 @@ It’s about understanding it, and letting it exist as it was. "
         modal.classList.remove("active");
       };
   </script>
+  <audio id="bgm" loop preload="auto">
+    <source src="audio/bg.m4a" type="audio/mp4">
+  </audio>
+<script src="bgm.js"></script>
 
 </body>
 

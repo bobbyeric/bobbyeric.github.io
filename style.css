@@ -391,6 +391,34 @@ body::before{
   }
 }
 
+.sound-toggle{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+
+  padding: 8px 14px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,.25);
+  color: rgba(255,255,255,.85);
+
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+.sound-toggle:hover{
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+
 
 
 
