@@ -1,115 +1,162 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bobby Eric</title>
-  <link rel="stylesheet" href="style.css">
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,
+initial-scale=1">
+ <title>Bobby Eric | Official Website</title>
+ <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
+ 
 <body>
-
-<!-- HERO : 最新专辑 -->
+ 
+<header class="header">
+ <div class="wrap header__wrap">
+   <div class="header__logo">Bobby Eric</div>
+   <nav class="header__nav">
+     <a href="#" class="header__nav-link">Home</a>
+     <a href="#archive" class="header__nav-link">Archive</a>
+     <a href="https://www.instagram.com/bobbyeric0914" target="_blank" class="header__nav-link">Social</a>
+   </nav>
+ </div>
+</header>
+ 
 <section class="hero">
-  <picture>
-    <!-- 手机用竖图 -->
-    <source
-      media="(max-width: 768px)"
-      srcset="img/hero-mobile.jpg"
-    />
-    <!-- 桌面用横图 -->
-    <img
-      src="img/hero-desktop.jpg"
-      class="hero__bg"
-      alt="Fall (Bobby's Version)"
-    />
-  </picture>
+ <picture>
+      <source
+     media="(max-width: 768px)"
+     srcset="img/hero-mobile.jpg"
+   />
+      <img
+     src="img/hero-desktop.jpg"
+     class="hero__bg"
+     alt="Fall (Bobby's Version) - New Album"
+   />
+ </picture>
+ 
+  <div class="hero__content">
+   <h1 class="hero__title">FALL (Bobby's Version)</h1>
+   <p class="hero__meta">The new album out now.</p>
+   <a href="/downloads/fall-bv.zip" download class="hero__btn">
+     <i class="fas fa-cloud-download-alt"></i> Download Album
+   </a>
+ </div>
 </section>
-
-
-
-<!-- ARCHIVE -->
-<section class="section">
-  <div class="wrap">
-    <h2>Archive</h2>
-
-    <div class="grid">
-
-      <div class="card">
-        <img src="img/2006.jpg">
-        <div class="meta">
-          <div class="title">2006</div>
-          <div class="year">2023-08-07</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/fall-original.jpg">
-        <div class="meta">
-          <div class="title">Fall</div>
-          <div class="year">2023-09-14</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/2006-bv.jpg">
-        <div class="meta">
-          <div class="title">2006 (Bobby’s Version)</div>
-          <div class="year">2024-03-16</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/forever.jpg">
-        <div class="meta">
-          <div class="title">forever</div>
-          <div class="year">2024-05-02</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/karma.jpg">
-        <div class="meta">
-          <div class="title">Karma</div>
-          <div class="year">2024-08-15</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/the-more-2006-chapter.jpg">
-        <div class="meta">
-          <div class="title">The More 2006 Chapter</div>
-          <div class="year">2025-06-23</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/daylight.jpg">
-        <div class="meta">
-          <div class="title">Daylight</div>
-          <div class="year">2025-07-17</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="img/fall-bv.jpg">
-        <div class="meta">
-          <div class="title">Fall (Bobby's Version)</div>
-          <div class="year">2025-11-22</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+ 
+ 
+ 
+<section id="archive" class="section">
+ <div class="wrap">
+   <h2 class="section-title">💿 Archive</h2>
+ 
+   <div class="grid">
+ 
+          <a href="/album/2006.html" class="card" target="_blank">
+       <img src="img/2006.jpg" alt="2006 Album Cover">
+       <div class="meta">
+         <div class="title">2006</div>
+         <div class="year">2023-08-07</div>
+       </div>
+              <a href="/downloads/2006.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+      
+     <a href="/album/fall.html" class="card" target="_blank">
+       <img src="img/fall-original.jpg" alt="Fall Original Album Cover">
+       <div class="meta">
+         <div class="title">Fall</div>
+         <div class="year">2023-09-14</div>
+       </div>
+       <a href="/downloads/fall-original.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/2006-bv.html" class="card" target="_blank">
+       <img src="img/2006-bv.jpg" alt="2006 (Bobby's Version) Album Cover">
+       <div class="meta">
+         <div class="title">2006 (Bobby’s Version)</div>
+         <div class="year">2024-03-16</div>
+       </div>
+       <a href="/downloads/2006-bv.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/forever.html" class="card" target="_blank">
+       <img src="img/forever.jpg" alt="Forever Album Cover">
+       <div class="meta">
+         <div class="title">forever</div>
+         <div class="year">2024-05-02</div>
+       </div>
+       <a href="/downloads/forever.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/karma.html" class="card" target="_blank">
+       <img src="img/karma.jpg" alt="Karma Album Cover">
+       <div class="meta">
+         <div class="title">Karma</div>
+         <div class="year">2024-08-15</div>
+       </div>
+       <a href="/downloads/karma.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/the-more.html" class="card" target="_blank">
+       <img src="img/the-more-2006-chapter.jpg" alt="The More 2006 Chapter Album Cover">
+       <div class="meta">
+         <div class="title">The More 2006 Chapter</div>
+         <div class="year">2025-06-23</div>
+       </div>
+       <a href="/downloads/the-more-2006-chapter.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/daylight.html" class="card" target="_blank">
+       <img src="img/daylight.jpg" alt="Daylight Album Cover">
+       <div class="meta">
+         <div class="title">Daylight</div>
+         <div class="year">2025-07-17</div>
+       </div>
+       <a href="/downloads/daylight.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+     <a href="/album/fall-bv.html" class="card" target="_blank">
+       <img src="img/fall-bv.jpg" alt="Fall (Bobby's Version) Album Cover">
+       <div class="meta">
+         <div class="title">Fall (Bobby's Version)</div>
+         <div class="year">2025-11-22</div>
+       </div>
+       <a href="/downloads/fall-bv.zip" download class="download-link" onclick="event.stopPropagation();">
+         <i class="fas fa-download"></i> Download
+       </a>
+     </a>
+ 
+   </div>
+ </div>
 </section>
-
-<!-- FOOTER -->
+ 
 <footer class="footer">
-  <a href="https://instagram.com/bobbyeric0914" target="_blank">Instagram</a>
-  ·
-  <a href="https://youtube.com/@BobbyEric0914" target="_blank">YouTube</a>
-  <div class="copy">© Bobby Eric</div>
+  <div class="footer__social">
+   <a href="https://instagram.com/bobbyeric0914" target="_blank" title="Instagram">
+     <i class="fab fa-instagram"></i>
+   </a>
+   <a href="https://youtube.com/@BobbyEric0914" target="_blank" title="YouTube">
+     <i class="fab fa-youtube"></i>
+   </a>
+       </div>
+ <div class="copy">© 2023 - 2025 Bobby Eric. All Rights Reserved.</div>
+ <div class="copy"><a href="#" class="footer__nav-link">Privacy Policy</a> | <a href="#" class="footer__nav-link">Terms of Use</a></div>
 </footer>
-
+ 
 </body>
 </html>
