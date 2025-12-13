@@ -364,6 +364,21 @@ body::before{
   transform: translateY(-1px);
 }
 
+@media (max-width: 768px){
+  .grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px){
+  .card img{
+    aspect-ratio: 1 / 1;   /* 强制正方形封面墙 */
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}
+
 
 
 
