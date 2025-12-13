@@ -1,180 +1,303 @@
+/* =========================
+   Global
+========================= */
+
+:root{
+  --bg: #000;
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --line: rgba(255,255,255,.14);
+  --line-strong: rgba(255,255,255,.22);
+  --glass: rgba(0,0,0,.22);
+  --glass-2: rgba(255,255,255,.06);
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --radius: 18px;
+  --radius-lg: 28px;
+  --max: 1100px;
+  --pad: clamp(18px, 4vw, 56px);
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height: 100%;
+}
+
 body{
-  margin:0;
-  background:#0b0b0c;
-  color:#e9e9ea;
-  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.hero{
-  position:relative;
+img{
+  max-width: 100%;
+  display: block;
 }
 
-.hero img{
-  width:100%;
-  display:block;
+a{
+  color: inherit;
 }
 
-.hero-text{
-  position:absolute;
-  bottom:12%;
-  left:8%;
+/* Optional: make anchor focus look clean */
+:focus-visible{
+  outline: 2px solid rgba(255,255,255,.35);
+  outline-offset: 3px;
+  border-radius: 10px;
 }
 
-.hero-text h1{
-  margin:0;
-  font-size:48px;
-  letter-spacing:4px;
-}
+/* =========================
+   Layout helpers
+========================= */
 
-.hero-text p{
-  margin-top:8px;
-  font-size:14px;
-  letter-spacing:3px;
-  opacity:.8;
+.container{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
 }
 
 .section{
-  padding:80px 0;
-  border-top:1px solid #222;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 48px var(--pad);
 }
 
-.wrap{
-  width:90%;
-  max-width:1100px;
-  margin:auto;
+.section__title{
+  margin: 0 0 18px 0;
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.center{
-  text-align:center;
-}
+/* =========================
+   Hero (Fullscreen)
+========================= */
 
-.date{
-  color:#aaa;
-}
-
-.download{
-  display:inline-block;
-  margin-top:24px;
-  color:white;
-  text-decoration:none;
-  border-bottom:1px solid white;
-  letter-spacing:2px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:24px;
-}
-
-.card img{
-  width:100%;
-  display:block;
-}
-
-.meta{
-  margin-top:8px;
-}
-
-.title{
-  letter-spacing:.5px;
-}
-
-.year{
-  font-size:12px;
-  color:#888;
-}
-
-.footer{
-  padding:40px 0;
-  text-align:center;
-  font-size:12px;
-  color:#888;
-}
-
-.footer a{
-  color:#888;
-  text-decoration:none;
-}
-
-.copy{
-  margin-top:8px;
-}
-
-/* ===== Hero 全屏（手机 / 桌面通用） ===== */
-
-.hero {
+.hero{
   position: relative;
   width: 100%;
-  height: 100svh;        /* 关键：手机真全屏 */
+  height: 100svh;     /* real fullscreen on mobile */
   min-height: 100svh;
   overflow: hidden;
   background: #000;
 }
 
+/* Support old iOS behavior */
+@supports (-webkit-touch-callout: none) {
+  .hero{ height: 100svh; }
+}
+
 .hero picture,
-.hero img {
+.hero img{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
 
-.hero__bg {
-  object-fit: cover;    /* 必须是 cover */
+.hero__bg{
+  object-fit: cover;
   object-position: center;
+  transform: scale(1.02); /* tiny upscale to avoid edge seams */
 }
 
-/* 渐变遮罩（官网感来源） */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.15),
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.85)
-  );
+/* “Taylor-like” overlay: soft top + heavier bottom */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(1200px 800px at 50% 30%, rgba(0,0,0,.12), rgba(0,0,0,.46)),
+    linear-gradient(to bottom, rgba(0,0,0,.06) 0%, rgba(0,0,0,.48) 58%, rgba(0,0,0,.86) 100%);
   z-index: 1;
 }
 
-/* 文案层 */
-.hero__content {
+/* Content layer */
+.hero__content{
   position: relative;
   z-index: 2;
 
   height: 100%;
-  max-width: 1000px;
+  max-width: var(--max);
   margin: 0 auto;
+  padding: var(--pad);
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 14px;
-
-  padding: clamp(20px, 4vw, 48px);
-  color: #fff;
+  gap: 12px;
 }
 
-.hero__title {
-  font-size: clamp(28px, 4vw, 52px);
-  line-height: 1.05;
+.hero__title{
+  margin: 0;
+  font-size: clamp(30px, 4.8vw, 62px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   font-weight: 700;
+  text-shadow: 0 16px 40px rgba(0,0,0,.55);
 }
 
-.hero__meta {
-  font-size: 16px;
-  opacity: 0.85;
+.hero__meta{
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.76);
 }
 
-.hero__btn {
-  display: inline-block;
+.hero__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
   width: fit-content;
-  padding: 10px 18px;
-  border: 1px solid rgba(255,255,255,0.7);
-  color: #fff;
+  padding: 12px 18px;
+  border-radius: 999px;
+
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
   text-decoration: none;
+
   font-size: 14px;
+  letter-spacing: .02em;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
 }
 
+.hero__btn:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.28);
+  transform: translateY(-1px);
+}
+
+.hero__btn:active{
+  transform: translateY(0);
+}
+
+/* Small screens: keep CTA visible without crowding */
+@media (max-width: 420px){
+  .hero__content{ gap: 10px; }
+  .hero__btn{ padding: 11px 16px; }
+}
+
+/* =========================
+   Discography grid
+========================= */
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (min-width: 780px){
+  .grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+}
+@media (min-width: 1024px){
+  .grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+}
+
+.card{
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.card:hover{
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  background: rgba(255,255,255,.055);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+}
+
+.card a{
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* cover image */
+.card img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: rgba(255,255,255,.04);
+}
+
+/* text area */
+.card .info{
+  padding: 12px 12px 14px;
+}
+
+.card .name{
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.card .year{
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* =========================
+   Footer / small text
+========================= */
+
+.footer{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 36px var(--pad) 52px;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  letter-spacing: .06em;
+}
+
+/* =========================
+   If you have a top nav
+========================= */
+
+.nav{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 18px var(--pad);
+}
+
+.nav__inner{
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.nav a{
+  text-decoration: none;
+  color: rgba(255,255,255,.82);
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.nav a:hover{
+  color: rgba(255,255,255,.98);
+}
