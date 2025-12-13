@@ -27,7 +27,8 @@ body{
 }
 
 .hero-text p{
-  margin:8px 0 0;
+  margin-top:8px;
+  font-size:14px;
   letter-spacing:3px;
   opacity:.8;
 }
@@ -39,8 +40,12 @@ body{
 
 .wrap{
   width:90%;
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
+}
+
+.center{
+  text-align:center;
 }
 
 .date{
@@ -49,24 +54,30 @@ body{
 
 .download{
   display:inline-block;
-  margin-top:20px;
+  margin-top:24px;
   color:white;
   text-decoration:none;
   border-bottom:1px solid white;
+  letter-spacing:2px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
+  gap:24px;
 }
 
 .card img{
   width:100%;
+  display:block;
 }
 
 .meta{
-  margin-top:6px;
+  margin-top:8px;
+}
+
+.title{
+  letter-spacing:.5px;
 }
 
 .year{
