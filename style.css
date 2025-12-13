@@ -113,3 +113,11 @@ body{
 .copy{
   margin-top: 8px;
 }
+
+/* 桌面端：向下偏移裁切，显示顶部标题 */
+@media (min-width: 769px) {
+  .hero img {
+    object-position: center 35%;
+  }
+}
+
