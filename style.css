@@ -40,10 +40,17 @@ body{
 }
 
 .section{
-  padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.01);
+  padding:80px 0;
+  border-top:1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(
+    180deg,
+    #11100e 0%,
+    #0f0e0d 100%
+  );
+  position: relative;
+  z-index: 1;
 }
+
 
 
 .wrap{
