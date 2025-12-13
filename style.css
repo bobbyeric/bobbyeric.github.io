@@ -1,99 +1,115 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bobby Eric</title>
-  <link rel="stylesheet" href="style.css?v=final">
-</head>
+/* ===== Base ===== */
+*{
+  box-sizing: border-box;
+}
 
-<body>
+body{
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    #161411 0%,
+    #12110f 40%,
+    #0e0d0b 100%
+  );
+  color: #e9e9ea;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial;
+}
 
-<!-- HERO -->
-<section class="hero"></section>
+/* ===== Hero ===== */
+.hero{
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
 
-<!-- ARCHIVE -->
-<section class="section">
-  <div class="wrap">
-    <h2 class="center">Archive</h2>
+@media (max-width: 768px){
+  .hero{
+    height: 100svh;
+  }
+}
 
-    <div class="grid">
+.hero picture,
+.hero img{
+  width: 100%;
+  height: 100%;
+}
 
-      <div class="card">
-        <img src="img/2006.jpg" alt="">
-        <div class="meta">
-          <div class="title">2006</div>
-          <div class="year">2023-08-07</div>
-        </div>
-      </div>
+.hero img{
+  object-fit: cover;
+  display: block;
+}
 
-      <div class="card">
-        <img src="img/fall-original.jpg" alt="">
-        <div class="meta">
-          <div class="title">Fall</div>
-          <div class="year">2023-09-14</div>
-        </div>
-      </div>
+/* ===== Section ===== */
+.section{
+  position: relative;
+  z-index: 1;
+  padding: 80px 0;
+  background: #0f0e0d;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
 
-      <div class="card">
-        <img src="img/2006-bv.jpg" alt="">
-        <div class="meta">
-          <div class="title">2006 (Bobby’s Version)</div>
-          <div class="year">2024-03-16</div>
-        </div>
-      </div>
+.wrap{
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
-      <div class="card">
-        <img src="img/forever.jpg" alt="">
-        <div class="meta">
-          <div class="title">forever</div>
-          <div class="year">2024-05-02</div>
-        </div>
-      </div>
+.center{
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 48px;
+}
 
-      <div class="card">
-        <img src="img/karma.jpg" alt="">
-        <div class="meta">
-          <div class="title">Karma</div>
-          <div class="year">2024-08-15</div>
-        </div>
-      </div>
+/* ===== Grid ===== */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 32px;
+}
 
-      <div class="card">
-        <img src="img/the-more-2006-chapter.jpg" alt="">
-        <div class="meta">
-          <div class="title">The More 2006 Chapter</div>
-          <div class="year">2025-06-23</div>
-        </div>
-      </div>
+.card img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease, filter .4s ease;
+}
 
-      <div class="card">
-        <img src="img/daylight.jpg" alt="">
-        <div class="meta">
-          <div class="title">Daylight</div>
-          <div class="year">2025-07-17</div>
-        </div>
-      </div>
+.card:hover img{
+  transform: scale(1.03);
+  filter: brightness(0.95) saturate(0.9);
+}
 
-      <div class="card">
-        <img src="img/fall-bv.jpg" alt="">
-        <div class="meta">
-          <div class="title">Fall (Bobby’s Version)</div>
-          <div class="year">2025-11-22</div>
-        </div>
-      </div>
+.meta{
+  margin-top: 10px;
+}
 
-    </div>
-  </div>
-</section>
+.title{
+  letter-spacing: 0.5px;
+}
 
-<!-- FOOTER -->
-<footer class="footer">
-  <a href="https://instagram.com/bobbyeric0914" target="_blank">Instagram</a>
-  ·
-  <a href="https://youtube.com/@BobbyEric0914" target="_blank">YouTube</a>
-  <div class="copy">© Bobby Eric</div>
-</footer>
+.year{
+  font-size: 12px;
+  color: #8f8a82;
+  margin-top: 2px;
+}
 
-</body>
-</html>
+/* ===== Footer ===== */
+.footer{
+  padding: 40px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #8f8a82;
+  background: #0d0c0b;
+}
+
+.footer a{
+  color: #8f8a82;
+  text-decoration: none;
+}
+
+.copy{
+  margin-top: 8px;
+}
