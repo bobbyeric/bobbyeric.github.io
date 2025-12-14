@@ -9,25 +9,18 @@ body{
   color: #e9e9ea;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial;
 
-  /* Fall 背景 */
-  background:
-    linear-gradient(
-      rgba(10,9,8,0.65),
-      rgba(10,9,8,0.65)
-    ),
-    url("img/background-desktop.jpg") center / cover no-repeat fixed;
 }
 
 
 /* ===== Hero ===== */
 .hero{
-  width: 100%;
-  height: 80vh;
-  overflow: hidden;
   position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 100vh;
+  overflow: hidden;
   background: #000;
 }
-
 @media (max-width: 768px){
   .hero{
     height: 100svh;
@@ -38,11 +31,12 @@ body{
 .hero img{
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .hero img{
   object-fit: cover;
-  display: block;
+  object-position: center 40%; /* 觉得画面偏上/偏下就改这个百分比 */
 }
 
 /* ===== Section ===== */
@@ -139,11 +133,12 @@ body{
     background-position: center 45%;
   }
 }
-
 .section{
-  background: rgba(15,14,13,0.0);
+  background: rgba(15,14,13,0.08); /* 别用 0，给一点点底色更稳 */
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
+
 
 body::before{
   content:"";
@@ -163,12 +158,12 @@ body::before{
 }
 
 @font-face{
-  font-family: "FallArchive";
+  font-family: "fonts";
   src: url("fonts/ChalkboardSE-Bold-03_0.ttf") format("truetype");
 }
 
 .section{
-  font-family: "FallArchive", serif;
+  font-family: "fonts", serif;
 }
 
 .section h2{
@@ -309,7 +304,7 @@ body::before{
 
 /* ===== Merch ===== */
 .merch{
-  background: rgba(15,14,13,0.6);
+  background: rgba(15,14,13,0.1);
 }
 
 .merch-grid{
@@ -380,16 +375,6 @@ body::before{
   }
 }
 
-@media (max-width: 768px){
-  body{
-    background:
-      linear-gradient(
-        rgba(10,9,8,0.55),
-        rgba(10,9,8,0.9)
-      ),
-      url("img/background-mobile.jpg") center / cover no-repeat;
-  }
-}
 
 .sound-toggle{
   position: absolute;
@@ -421,9 +406,960 @@ body::before{
   color: rgba(255,255,255,.85);
 }
 
+/* ===== Hamburger (mobile) ===== */
+.menu-btn{
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-btn span{
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 4px 0;
+  background: rgba(255,255,255,.9);
+  border-radius: 3px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+
+.menu-btn.is-open span:nth-child(1){
+  transform: translateY(7px) rotate(45deg);
+}
+.menu-btn.is-open span:nth-child(2){
+  opacity: 0;
+}
+.menu-btn.is-open span:nth-child(3){
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== Desktop nav ===== */
+.top-nav{
+  display: flex;
+  gap: 22px;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.top-nav a{
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+}
+.top-nav a:hover{
+  color: #fff;
+}
+
+/* ===== Mobile Slide Menu (clean) ===== */
+
+/* 菜单打开时：彻底锁滚动（配合下面 JS 更稳） */
+body.menu-open{
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* 全屏遮罩 */
+.menu{
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease;
+}
+
+.menu.is-open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 右侧面板 */
+.menu-panel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(78vw, 420px);
+
+  background: rgba(169, 83, 8, 0.96);
+  box-shadow: -30px 0 80px rgba(0,0,0,.45);
+
+  /* 关键：内容居中 + 留出安全边距 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+
+  padding: 96px 22px 56px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  transform: translateX(100%);
+  transition: transform .28s ease;
+}
+
+.menu.is-open .menu-panel{
+  transform: translateX(0);
+}
+
+/* 关闭按钮：不要小白方块，做成透明 */
+.menu-close{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 44px;
+  height: 44px;
+
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.92);
+
+  font-size: 34px;
+  line-height: 44px;
+  cursor: pointer;
+}
+
+/* 链接：居中、干净、像官网 */
+.menu-nav{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.menu-nav a{
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+
+  font-size: 26px;
+  letter-spacing: .02em;
+  line-height: 1.1;
+}
+
+.menu-nav a:visited{ color: rgba(255,255,255,.92); }
+.menu-nav a:hover{ color: #fff; }
+
+/* 手机：顶部横向菜单隐藏（避免你截图里那串红色文字叠在菜单上） */
+@media (max-width: 768px){
+  .top-nav{ display: none !important; }
+}
+
+/* 桌面：不显示滑出菜单层（避免 JS 误开时乱套） */
+@media (min-width: 769px){
+  #menu{ display: none; }
+}
+
+/* ===== Fixed header (always on top) ===== */
+.site-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 4000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px;
+  pointer-events: auto;
+}
+
+/* ===== Desktop top nav (left) ===== */
+.top-nav{
+  display: flex;
+  gap: 22px;
+  align-items: center;
+
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.top-nav a{
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+  padding: 8px 2px;
+}
+
+.top-nav a:hover{
+  color: rgba(255,255,255,.98);
+}
+
+/* ===== Sound (right) ===== */
+.sound-toggle{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.sound-toggle:hover{ color: rgba(255,255,255,.9); }
+.sound-toggle.playing{ color: rgba(255,255,255,.85); }
+
+/* ===== Hamburger (left) ===== */
+.menu-btn{
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-btn span{
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 4px 0;
+  background: rgba(255,255,255,.9);
+  border-radius: 3px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+
+.menu-btn.is-open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.menu-btn.is-open span:nth-child(2){ opacity: 0; }
+.menu-btn.is-open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* ===== Responsive rules ===== */
+/* 手机：显示汉堡，隐藏桌面菜单 */
+@media (max-width: 768px){
+  .top-nav{ display: none; }
+  .menu-btn{ display: block; }
+}
+
+/* 桌面：显示横向菜单，隐藏汉堡按钮 */
+@media (min-width: 769px){
+  .top-nav{ display: flex; }
+  .menu-btn{ display: none; }
+}
+
+/* =========================
+   Background System (v2)
+   - 背景挂在 html::before，body 变透明
+   - 不改 header/menu 的 fixed/层级
+   - 不露白、不跟着 body 位移
+========================= */
+
+/* 永远不要露白 */
+html, body{
+  height: 100%;
+  background: #000;
+}
+
+/* body 不背图（关键），否则 menu.js 固定 body 会带着背景一起跑 */
+body{
+  background: transparent !important;
+  min-height: 100vh;
+}
+
+/* 固定背景层：跟 viewport 走，不跟 body 走 */
+html::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(rgba(10,9,8,0.65), rgba(10,9,8,0.65)),
+    url("img/background-desktop.jpg") center / cover no-repeat;
+
+  transform: translateZ(0);
+}
+
+/* 手机背景 */
+@media (max-width: 768px){
+  html::before{
+    background:
+      linear-gradient(rgba(10,9,8,0.55), rgba(10,9,8,0.90)),
+      url("img/background-mobile.jpg") center / cover no-repeat;
+  }
+}
+
+/* 只把“主要内容”抬到背景之上；不要动 header/menu 的定位 */
+.hero,
+.section,
+.footer{
+  position: relative;
+  z-index: 1;
+}
+
+/* 叶子：在背景之上、内容之下（你想让叶子盖在内容上就把 z-index 调大） */
+.leaves{
+  z-index: 2;
+}
+
+/* 噪点层：别压到菜单上，否则会混色发脏 */
+body::before{
+  z-index: 3;  /* 你原来 9999 太高 */
+}
+
+/* 菜单打开时禁用噪点（最稳） */
+body.menu-open::before{
+  display: none;
+}
+
+/* 防止桌面开菜单时滚动条消失造成“横向跳一下” */
+html{
+  scrollbar-gutter: stable;
+}
+
+/* ===== Desktop green menu bar (like your screenshot) ===== */
+@media (min-width: 769px){
+
+  /* 顶栏本体：保持透明，不要整块盖住 */
+  .site-header{
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+  }
+
+  /* 让菜单本身变成“绿色条” */
+  .top-nav{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   /* 拉开间距，像截图那样分布 */
+    gap: 48px;
+
+    height: 44px;
+    padding: 0 34px;
+
+    background: rgba(220, 84, 15, 0.55);   /* 绿色条（你可以调深浅） */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border-radius: 4;                  /* 截图是直角条 */
+  }
+
+  /* 字体更像截图：更大、更粗、更“斜体感” */
+  .top-nav a{
+    font-size: 22px;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0.02em;
+
+    color: rgba(255,255,255,0.95);
+    text-decoration: none;
+    padding: 8px 10px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .top-nav a:hover{
+    color: #fff;
+  }
+
+  /* 如果你想让绿色条“更宽”，靠近边缘 */
+  .site-header{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (min-width: 769px) and (max-width: 1100px){
+  .top-nav{
+    gap: 32px;
+    padding: 0 28px;
+  }
+
+  .top-nav a{
+    font-size: 20px;
+  }
+}
+
+.top-nav a{
+  font-family: "fonts", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.menu-nav a{
+  font-family: "fonts", sans-serif;
+  font-size: 22px;        /* 可调，和桌面接近 */
+  font-weight: 700;       /* 和你桌面一致 */
+  letter-spacing: 0.02em;
+  font-style: normal;     /* 移动端一般不建议 italic，可按你喜好 */
+  color: rgba(255,255,255,0.95);
+}
+
+/* ===== Mobile menu social icons ===== */
+
+.menu-social{
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+
+.menu-social a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+
+  transition: transform .18s ease, opacity .18s ease, background .18s ease;
+}
+
+.menu-social a:hover{
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.menu-social a:active{
+  transform: scale(0.96);
+}
+
+/* 轻微背景（高级感） */
+.menu-social a{
+  background: rgba(255,255,255,0.08);
+}
+
+/* Archive header: no nav, just back + sound */
+.archive-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+
+/* ===== Archive Top Bar (Taylor-like) ===== */
+.archive-topbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6000;
+
+  background: rgba(120, 54, 54, 0.92); /* 酒红底 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.archive-topbar__inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 18px;
+  padding: 14px 18px;
+}
+
+.archive-nav{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.archive-nav__link{
+  text-decoration: none;
+  color: rgba(255,255,255,0.80);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  transition: background .18s ease, color .18s ease;
+}
+
+.archive-nav__link:hover{
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.10);
+}
+
+.archive-nav__link.is-active{
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.16);
+}
+
+.archive-actions{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 右侧 sound 做成 bar 风格（别挡布局） */
+.sound-toggle--bar{
+  position: static;   /* 覆盖你首页的 absolute 定位 */
+  top: auto;
+  right: auto;
+  z-index: auto;
+  font-size: 12px;
+  letter-spacing: .14em;
+}
+
+/* 右侧社交图标 */
+.archive-social{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.archive-social a{
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba(255,255,255,0.80);
+  border-radius: 999px;
+
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+
+.archive-social a:hover{
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.10);
+  transform: translateY(-1px);
+}
+
+/* Archive 页面内容往下推，避免被 fixed bar 盖住 */
+.archive-wrap{
+  padding-top: 86px;
+}
+
+/* 小屏：导航过长时自动隐藏部分（可选） */
+@media (max-width: 520px){
+  .archive-nav{ gap: 8px; }
+  .archive-nav__link{ padding: 9px 10px; font-size: 13px; }
+}
+
+/* ===== Theme variables (default) ===== */
+:root{
+  --accent: #E06D14;
+  --bar: rgba(120,54,54,0.92);
+  --bg-img: none;
+  --bg-overlay: rgba(10,9,8,0.72);
+}
+
+
+/* Top bar color follows theme */
+.archive-topbar{
+  background: var(--bar);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Headings / accents follow theme */
+.archive-hero h1,
+.archive-section h2,
+.album-view h1{
+  color: var(--accent);
+}
+
+/* ===== Album Rail (Taylor-like) ===== */
+.album-rail{
+  margin-top: 18px;
+  padding: 12px 0 18px;
+
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.album-rail::-webkit-scrollbar{ height: 8px; }
+.album-rail::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+}
+
+.album-pill{
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.14);
+
+  color: rgba(255,255,255,0.88);
+  cursor: pointer;
+
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.album-pill img{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+}
+
+.album-pill span{
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.album-pill:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.08);
+}
+
+.album-pill.is-active{
+  border-color: color-mix(in srgb, var(--accent) 65%, rgba(255,255,255,0.18));
+  background: rgba(255,255,255,0.10);
+}
+
+/* ===== Album Panel (content switch) ===== */
+.album-panel{
+  padding: 26px 0 60px;
+}
+
+.album-view{
+  display: none;
+  animation: fadeIn .18s ease;
+}
+
+.album-view.is-active{
+  display: block;
+}
+
+@keyframes fadeIn{
+  from{ opacity: 0; transform: translateY(4px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
 
 
 
+/* ===== Strips: show cover on strips + square cover on active ===== */
+
+/* ===== Strips ===== */
+.strips{
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: min(78vh, 680px);
+  overflow: hidden;
+  background: #000;
+}
+
+/* 条带 */
+.strip{
+  flex: 1 1 0;
+  min-width: 18px;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  background: var(--img) center / cover no-repeat;
+
+  transition: flex .45s ease, filter .25s ease;
+  filter: brightness(.72) saturate(.9);
+}
+
+.strip:hover{ filter: brightness(.86) saturate(1); }
+
+.strip.is-active{
+  flex: 2.2 1 0;   /* 你想更夸张就改大，比如 3.5 */
+  filter: brightness(.88) saturate(1);
+}
+
+/* 永远居中的正方形封面（裁切允许，不要求完整显示） */
+.focus-cover{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+
+  height: min(84%, 520px);
+  aspect-ratio: 1 / 1;
+
+  background: var(--focus-img) center / cover no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.6);
+
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 手机 */
+@media (max-width: 768px){
+  .strips{ height: 52vh; }
+  .strip.is-active{ flex: 2 1 0; }
+  .focus-cover{ height: min(86%, 360px); }
+}
+
+/* ===== Global background engine (HOME) ===== */
+html::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(rgba(10,9,8,0.65), rgba(10,9,8,0.65)),
+    url("img/background-desktop.jpg") center / cover no-repeat;
+}
+
+/* ===== Archive overrides background ===== */
+html.archive-page::before{
+  background: var(--bg-color, #1a1a1a) !important;
+}
+
+/* ===== ONE background engine ===== */
+html::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(rgba(10,9,8,0.65), rgba(10,9,8,0.65)),
+    url("img/background-desktop.jpg") center / cover no-repeat;
+}
+
+/* 手机主页 */
+@media (max-width: 768px){
+  html::before{
+    background:
+      linear-gradient(rgba(10,9,8,0.55), rgba(10,9,8,0.90)),
+      url("img/background-mobile.jpg") center / cover no-repeat;
+  }
+}
+
+/* ===== Archive page override ===== */
+html.archive-page::before{
+  background: var(--bg-color, #1a1a1a) !important;
+}
+
+body,
+.hero,
+.section,
+.footer,
+.archive-wrap,
+.album-panel{
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Album card layout ===== */
+.album-card{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px;
+
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 30px 90px rgba(0,0,0,.35);
+}
+
+.album-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.album-title{
+  margin: 0;
+  font-size: clamp(22px, 3.4vw, 32px);
+  color: var(--accent);
+  letter-spacing: .02em;
+}
+
+.album-sub{
+  margin: 8px 0 0;
+  color: rgba(255,255,255,.68);
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.album-body{
+  padding-top: 18px;
+}
+
+.album-section{
+  padding: 18px 0;
+}
+
+.album-section h3{
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+
+.album-section p{
+  margin: 0;
+  color: rgba(255,255,255,.82);
+  line-height: 1.75;
+}
+
+/* ===== Tour pill ===== */
+.tour-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,.86);
+  letter-spacing: .04em;
+}
+
+/* ===== Buttons ===== */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,.9);
+
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.btn-primary{
+  border-color: color-mix(in srgb, var(--accent) 60%, rgba(255,255,255,0.18));
+  background: color-mix(in srgb, var(--accent) 18%, rgba(255,255,255,0.06));
+  color: rgba(255,255,255,.95);
+}
+
+/* ===== Tracklist (modern rows) ===== */
+.tracklist{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.track-row{
+  display: grid;
+  grid-template-columns: 44px 1fr minmax(180px, 260px);
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px 12px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.track-row:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.track-no{
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,.85);
+  font-size: 12px;
+  letter-spacing: .06em;
+}
+
+.track-title{
+  color: rgba(255,255,255,.92);
+  font-size: 14px;
+  letter-spacing: .02em;
+}
+
+.track-meta{
+  margin-top: 4px;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+
+.track-player audio{
+  width: 100%;
+}
+
+/* Mobile: stack audio below */
+@media (max-width: 720px){
+  .album-head{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .track-row{
+    grid-template-columns: 44px 1fr;
+  }
+
+  .track-player{
+    grid-column: 1 / -1;
+  }
+}
 
 
 

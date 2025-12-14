@@ -20,21 +20,64 @@
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css?v=1">
+
+
 </head>
 
 <body>
+  <header class="site-header">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#Merch">Merch</a>
+      <a href="archive.html">Archive</a>
+      <a href="#projects">Projects</a>
+      <a href="#mailto:kekele2578@gmail.com">Contact</a>
+    </nav>
+
+    <button id="soundToggle" class="sound-toggle">Sound: Off</button>
+  </header>
+
+  <!-- Mobile slide menu -->
+  <div id="menu" class="menu">
+    <div class="menu-panel">
+
+      <nav class="menu-nav">
+      <a href="#Merch">Merch</a>
+      <a href="archive.html">Archive</a>
+      <a href="#projects">Projects</a>
+      <a href="#mailto:kekele2578@gmail.com">Contact</a>
+        <div class="menu-social">
+          <a href="https://instagram.com/bobbyeric0914" target="_blank" aria-label="Instagram">
+            <!-- Instagram SVG -->
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+              <path
+                d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z" />
+            </svg>
+          </a>
+
+          <a href="https://youtube.com/@BobbyEric0914" target="_blank" aria-label="YouTube">
+            <!-- YouTube SVG -->
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+              <path
+                d="M23 7.5s-.2-1.7-.8-2.4c-.8-.9-1.7-.9-2.1-1C16.9 4 12 4 12 4h0s-4.9 0-8.1.1c-.4.1-1.3.1-2.1 1C1.2 5.8 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.7.8 2.4c.8.9 1.9.9 2.4 1 1.7.2 7.8.2 7.8.2s4.9 0 8.1-.1c.4-.1 1.3-.1 2.1-1 .6-.7.8-2.4.8-2.4s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.8-.2-3.8zM9.6 14.6V8.9l6 2.9-6 2.8z" />
+            </svg>
+          </a>
+        </div>
+
+      </nav>
+    </div>
+  </div>
+
 
   <!-- HERO -->
   <section class="hero">
-    <button id="soundToggle" class="sound-toggle">Sound: Off</button>
-    <picture>
-      <source media="(max-width: 768px)" srcset="img/hero-mobile.jpg">
-      <img src="img/hero-desktop.jpg" alt="Fall (Bobby's Version)">
-    </picture>
   </section>
 
   <!-- ARCHIVE -->
-  <section class="section">
+  <section class="section" id="archive">
     <div class="wrap">
       <h2 class="center">Archive</h2>
 
@@ -46,8 +89,8 @@ It captures youth in its rawest form—uncertain, impulsive, and emotionally dir
 The record moves through first realizations, shifting friendships, and the urge to define oneself before having the language to do so. Nothing is polished or resolved; the songs value honesty over refinement, instinct over structure.
 
 2006 isn’t about looking back.
-It’s about existing fully in the moment before everything changes." data-tracks="Gorgeous; 2006; Begin Again; Payphone"
-          data-download="https://example.com/2006-download">
+It’s about existing fully in the moment before everything changes." data-tracks="Gorgeous"
+          data-download=archive.html#2006>
 
           <img src="img/2006.jpg">
 
@@ -65,8 +108,8 @@ The album doesn’t dramatize loss or resolution. Instead, it observes—allowin
 
 Fall isn’t about sadness.
 It’s about beauty found in remembrance and the calm of letting moments fade gently."
-          data-tracks="All Too Well; Enchanted; Letting Go; Long Live; Snow On The Beach"
-          data-download="https://example.com/fall-original-download">
+          data-tracks="*All Too Well; Enchanted; Letting Go; Long Live; Snow On The Beach"
+          data-download=archive.html#fall>
 
           <img src="img/fall-original.jpg">
 
@@ -84,7 +127,7 @@ The re-recorded tracks are more measured and intentional, keeping the honesty of
 
 2006 (Bobby’s Version) isn’t about going back.
 It’s about understanding how it all began." data-tracks="Gorgeous; 2006; Begin Again; Payphone"
-          data-download="https://example.com/2006-bv-download">
+          data-download=archive.html#2006bv>
 
           <img src="img/2006-bv.jpg">
 
@@ -103,7 +146,7 @@ The record moves slowly and deliberately, shaped by memory, stillness, and emoti
 forever isn’t about permanence as certainty.
 It’s about choosing to remember, even when nothing stays the same."
           data-tracks="forever; Run Aground; Better Man; Holy Ground"
-          data-download="https://example.com/forever-download">
+          data-download=archive.html#forever>
 
           <img src="img/forever.jpg">
 
@@ -122,7 +165,7 @@ The record doesn’t seek balance or calm. Instead, it leans into intensity, ang
 *Karma* is not about closure.
 It’s about reclaiming control when the narrative is taken away—and refusing to be reduced to it.
 " data-tracks="…Ready For It?; Don’t Blame Me; End Game; I Can Do It With A Broken Heart; loml"
-          data-download="https://example.com/karma-download">
+          data-download=archive.html#karma>
 
           <img src="img/karma.jpg">
 
@@ -158,7 +201,7 @@ Rather than responding to pain, Daylight observes what remains once it no longer
 
 If *Karma* was about surviving the storm, Daylight is about standing in the light afterward and learning how to move forward.
 " data-tracks="Daylight; Begin Again; Long Live; The Very First Night"
-          data-download="https://example.com/daylight-download">
+          data-download=archive.html#daylight>
 
           <img src="img/daylight.jpg">
 
@@ -177,7 +220,7 @@ The re-recorded tracks are calmer and more reflective, leaving space for memory 
 Fall (Bobby’s Version) isn’t about reliving the season.
 It’s about understanding it, and letting it exist as it was. "
           data-tracks="*All Too Well; Begin Again; Enchanted; Long Live; Red"
-          data-download="https://example.com/fall-bv-download">
+          data-download=archive.html#fallbv>
 
           <img src="img/fall-bv.jpg">
 
@@ -192,7 +235,39 @@ It’s about understanding it, and letting it exist as it was. "
     </div>
   </section>
 
-  <section class="section merch">
+  <!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <h2 class="center">Projects</h2>
+
+    <!-- 暂时没有：占位 -->
+    <p class="muted center" id="projectsEmpty">Music videos coming soon.</p>
+
+    <!-- 以后有 MV：把下面这块取消注释/复制多份 -->
+    <!--
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+            title="Bobby Eric - MV"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-meta">
+          <div class="video-title">MV Title</div>
+          <div class="video-date">2026-01-01</div>
+        </div>
+      </div>
+    </div>
+    -->
+  </div>
+</section>
+
+
+  <section class="section merch" id="Merch">
     <div class="wrap center">
       <h2>Merch</h2>
 
@@ -335,7 +410,8 @@ It’s about understanding it, and letting it exist as it was. "
   <audio id="bgm" loop preload="auto">
     <source src="audio/bg.m4a" type="audio/mp4">
   </audio>
-<script src="bgm.js"></script>
+  <script src="bgm.js"></script>
+  <script src="menu.js"></script>
 
 </body>
 
