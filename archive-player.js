@@ -24,6 +24,8 @@
 
   const players = [];
 
+  const viewAudioMap = new Map();
+
   document.querySelectorAll(".album-view").forEach((view) => {
     const tracklist = view.querySelector(".tracklist");
     if (!tracklist) return;
@@ -39,7 +41,7 @@
     const player = document.createElement("div");
     player.className = "album-player";
     player.innerHTML = `
-      <div class="album-player__top">
+      <div class="album-player__top" tabindex="0" role="group" aria-label="Album player">
         <div class="album-player__cover"></div>
         <div class="album-player__info">
           <div class="album-player__album" data-album-title></div>
@@ -78,6 +80,7 @@
     section.insertBefore(player, tracklist);
 
     const audio = player.querySelector(".album-audio");
+    const focusRoot = player.querySelector(".album-player__top");
     const trackTitleEl = player.querySelector("[data-track-title]");
     const currentTimeEl = player.querySelector("[data-current]");
     const durationEl = player.querySelector("[data-duration]");
@@ -87,6 +90,7 @@
     const nextButton = player.querySelector('[data-action="next"]');
 
     const tracks = [];
+    const audioNodes = [];
     tracklist.querySelectorAll(".track-row").forEach((row) => {
       const title =
         row.querySelector(".track-title")?.textContent?.trim() || "Track";
@@ -109,8 +113,9 @@
 
       if (audioEl) {
         audioEl.removeAttribute("controls");
-        audioEl.preload = "metadata";
+        audioEl.preload = "none";
         audioEl.classList.add("track-audio");
+        audioNodes.push(audioEl);
 
         const durationEl = cell?.querySelector(".track-duration");
         const setDuration = () => {
@@ -145,6 +150,7 @@
       setActiveRow(index);
       if (autoplay) audio.play();
     }
+
 
     function togglePlay() {
       if (!audio.src) {
@@ -210,7 +216,29 @@
       audio.currentTime = Number(progress.value || 0);
     });
 
+    if (focusRoot) {
+      focusRoot.addEventListener("keydown", (event) => {
+        const target = event.target;
+        if (target && target.tagName === "INPUT") return;
+        if (event.key === " ") {
+          event.preventDefault();
+          togglePlay();
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          if (Number.isFinite(audio.duration)) {
+            audio.currentTime = Math.min(audio.currentTime + 5, audio.duration);
+          }
+        }
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          audio.currentTime = Math.max(audio.currentTime - 5, 0);
+        }
+      });
+    }
+
     players.push(audio);
+    viewAudioMap.set(view.dataset.albumView || "", audioNodes);
   });
 
   function pauseAll() {
@@ -218,6 +246,23 @@
   }
 
   document.querySelectorAll(".strip").forEach((strip) => {
-    strip.addEventListener("click", pauseAll);
+    strip.addEventListener("click", () => {
+      pauseAll();
+      const key = strip.dataset.album || "";
+      setActiveAlbum(key);
+    });
   });
+
+  function setActiveAlbum(key) {
+    viewAudioMap.forEach((nodes, viewKey) => {
+      const isActive = viewKey === key;
+      nodes.forEach((audioEl) => {
+        audioEl.preload = isActive ? "metadata" : "none";
+        if (isActive) audioEl.load();
+      });
+    });
+  }
+
+  const firstView = document.querySelector(".album-view");
+  if (firstView) setActiveAlbum(firstView.dataset.albumView || "");
 })();

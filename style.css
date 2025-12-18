@@ -1065,16 +1065,15 @@ html{
 
 .album-view{
   display: none;
-  animation: fadeIn .18s ease;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .25s ease, transform .25s ease;
 }
 
 .album-view.is-active{
   display: block;
-}
-
-@keyframes fadeIn{
-  from{ opacity: 0; transform: translateY(4px); }
-  to{ opacity: 1; transform: translateY(0); }
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
@@ -1105,6 +1104,9 @@ html{
 
   transition: flex .45s ease, filter .25s ease;
   filter: brightness(.72) saturate(.9);
+
+  animation: strip-reveal .6s ease both;
+  animation-delay: calc(var(--strip-i, 0) * 90ms);
 }
 
 .strip:hover{ filter: brightness(.86) saturate(1); }
@@ -1113,6 +1115,24 @@ html{
   flex: 2.2 1 0;   /* 你想更夸张就改大，比如 3.5 */
   filter: brightness(.88) saturate(1);
 }
+
+.strip:nth-child(1){ --strip-i: 0; }
+.strip:nth-child(2){ --strip-i: 1; }
+.strip:nth-child(3){ --strip-i: 2; }
+.strip:nth-child(4){ --strip-i: 3; }
+.strip:nth-child(5){ --strip-i: 4; }
+.strip:nth-child(6){ --strip-i: 5; }
+.strip:nth-child(7){ --strip-i: 6; }
+
+@keyframes strip-reveal{
+  from{ transform: translateX(-14px); opacity: 0; }
+  to{ transform: translateX(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .strip{ animation: none; }
+}
+
 
 /* 永远居中的正方形封面（裁切允许，不要求完整显示） */
 .focus-cover{
@@ -1356,6 +1376,7 @@ body,
   background: transparent;
 
   transition: transform .16s ease, background .16s ease, border-color .16s ease;
+  position: relative;
 }
 
 .track-row:hover{
@@ -1409,6 +1430,19 @@ body,
   background: rgba(255,255,255,0.10);
   border-color: rgba(255,255,255,0.16);
 }
+
+.track-row.is-playing::before{
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
 
 .track-audio{
   display: none;
@@ -1480,6 +1514,7 @@ body,
   margin-left: auto;
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
 }
+
 
 .album-player__main:hover{
   transform: translateY(-1px);
@@ -1660,4 +1695,5 @@ body,
   .album-player__main{
     display: none;
   }
+
 }
