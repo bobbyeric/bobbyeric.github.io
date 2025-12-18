@@ -34,6 +34,8 @@ body{
   display: block;
 }
 
+
+
 .hero img{
   object-fit: cover;
   object-position: center 40%; /* 觉得画面偏上/偏下就改这个百分比 */
@@ -1644,6 +1646,7 @@ body,
   .tracklist{
     max-height: 320px;
     padding: 10px;
+    margin-top: 12px;
   }
 
   .track-row{
@@ -1660,6 +1663,7 @@ body,
   .album-player{
     padding: 14px;
     gap: 12px;
+    margin: 8px 0 12px;
   }
 
   .album-player__top{

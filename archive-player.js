@@ -263,6 +263,11 @@
     });
   }
 
-  const firstView = document.querySelector(".album-view");
-  if (firstView) setActiveAlbum(firstView.dataset.albumView || "");
+  const initialKey =
+    document.querySelector(".album-view.is-active")?.dataset.albumView ||
+    document.querySelector(".strip.is-active")?.dataset.album ||
+    document.querySelector(".strip[data-album]")?.dataset.album ||
+    document.querySelector(".album-view")?.dataset.albumView ||
+    "";
+  if (initialKey) setActiveAlbum(initialKey);
 })();
