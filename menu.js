@@ -48,6 +48,9 @@ if (menuBtn && menu) {
     else openMenu();
   });
 
+  const closeBtn = menu.querySelector(".menu-close");
+  if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+
   // 点遮罩关闭（只点到最外层 menu 才关）
   menu.addEventListener("click", (e) => {
     if (e.target === menu) closeMenu();
