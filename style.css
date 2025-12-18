@@ -1474,7 +1474,7 @@ body,
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.12);
   cursor: pointer;
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   margin-left: auto;
@@ -1494,12 +1494,13 @@ body,
 }
 
 .album-player__controls [data-action="play"]{
-  display: none;
+  display: inline-flex;
 }
 
 .album-player__controls [data-action="prev"]{ order: 1; }
-.album-player__progress{ order: 2; }
+.album-player__controls [data-action="play"]{ order: 2; }
 .album-player__controls [data-action="next"]{ order: 3; }
+.album-player__progress{ order: 4; }
 
 .album-player__btn{
   width: 38px;
@@ -1657,9 +1658,6 @@ body,
   }
 
   .album-player__main{
-    display: inline-flex;
-    width: 56px;
-    height: 56px;
+    display: none;
   }
-}
 }
