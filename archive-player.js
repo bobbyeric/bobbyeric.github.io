@@ -7,13 +7,6 @@
     return match ? match[1] : value;
   }
 
-  function formatTime(seconds) {
-    if (!Number.isFinite(seconds) || seconds < 0) return "00:00";
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-  }
-
   const coverMap = new Map();
   document.querySelectorAll(".strip").forEach((strip) => {
     const key = strip.dataset.album;
@@ -23,8 +16,6 @@
   });
 
   const players = [];
-
-  const viewAudioMap = new Map();
 
   document.querySelectorAll(".album-view").forEach((view) => {
     const tracklist = view.querySelector(".tracklist");
@@ -63,9 +54,7 @@
           <span class="album-player__icon-next"></span>
         </button>
         <div class="album-player__progress">
-          <span class="album-player__time" data-current>00:00</span>
           <input type="range" min="0" max="0" value="0" step="1" aria-label="Seek" />
-          <span class="album-player__time" data-duration>00:00</span>
         </div>
       </div>
       <audio class="album-audio" preload="none"></audio>
@@ -82,15 +71,12 @@
     const audio = player.querySelector(".album-audio");
     const focusRoot = player.querySelector(".album-player__top");
     const trackTitleEl = player.querySelector("[data-track-title]");
-    const currentTimeEl = player.querySelector("[data-current]");
-    const durationEl = player.querySelector("[data-duration]");
     const progress = player.querySelector(".album-player__progress input");
     const playButtons = player.querySelectorAll('[data-action="play"]');
     const prevButton = player.querySelector('[data-action="prev"]');
     const nextButton = player.querySelector('[data-action="next"]');
 
     const tracks = [];
-    const audioNodes = [];
     tracklist.querySelectorAll(".track-row").forEach((row) => {
       const title =
         row.querySelector(".track-title")?.textContent?.trim() || "Track";
@@ -108,24 +94,10 @@
       const meta = row.querySelector(".track-meta");
       if (meta) meta.textContent = artistName;
 
-      const cell = row.querySelector(".track-player");
-      if (cell) cell.innerHTML = '<span class="track-duration">--:--</span>';
-
       if (audioEl) {
         audioEl.removeAttribute("controls");
         audioEl.preload = "none";
         audioEl.classList.add("track-audio");
-        audioNodes.push(audioEl);
-
-        const durationEl = cell?.querySelector(".track-duration");
-        const setDuration = () => {
-          if (durationEl && Number.isFinite(audioEl.duration)) {
-            durationEl.textContent = formatTime(audioEl.duration);
-          }
-        };
-
-        audioEl.addEventListener("loadedmetadata", setDuration, { once: true });
-        if (audioEl.readyState >= 1) setDuration();
       }
 
       row.classList.add("track-row--clickable");
@@ -196,14 +168,12 @@
     });
 
     audio.addEventListener("loadedmetadata", () => {
-      durationEl.textContent = formatTime(audio.duration);
       progress.max = Number.isFinite(audio.duration)
         ? Math.floor(audio.duration)
         : 0;
     });
 
     audio.addEventListener("timeupdate", () => {
-      currentTimeEl.textContent = formatTime(audio.currentTime);
       if (!progress.matches(":active")) {
         progress.value = Number.isFinite(audio.currentTime)
           ? Math.floor(audio.currentTime)
@@ -238,7 +208,6 @@
     }
 
     players.push(audio);
-    viewAudioMap.set(view.dataset.albumView || "", audioNodes);
   });
 
   function pauseAll() {
@@ -248,26 +217,6 @@
   document.querySelectorAll(".strip").forEach((strip) => {
     strip.addEventListener("click", () => {
       pauseAll();
-      const key = strip.dataset.album || "";
-      setActiveAlbum(key);
     });
   });
-
-  function setActiveAlbum(key) {
-    viewAudioMap.forEach((nodes, viewKey) => {
-      const isActive = viewKey === key;
-      nodes.forEach((audioEl) => {
-        audioEl.preload = isActive ? "metadata" : "none";
-        if (isActive) audioEl.load();
-      });
-    });
-  }
-
-  const initialKey =
-    document.querySelector(".album-view.is-active")?.dataset.albumView ||
-    document.querySelector(".strip.is-active")?.dataset.album ||
-    document.querySelector(".strip[data-album]")?.dataset.album ||
-    document.querySelector(".album-view")?.dataset.albumView ||
-    "";
-  if (initialKey) setActiveAlbum(initialKey);
 })();
