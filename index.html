@@ -72,6 +72,27 @@
     </div>
   </div>
 
+  <div class="countdown-modal" id="countdownModal" role="dialog" aria-modal="true" aria-labelledby="countdownTitle">
+    <div class="countdown-modal__overlay"></div>
+    <div class="countdown-modal__card">
+      <button class="countdown-modal__close" aria-label="Close countdown">×</button>
+
+      <div class="countdown-modal__eyebrow">Download unlocks soon</div>
+      <h3 class="countdown-modal__title" id="countdownTitle">Fall (Bobby's Version) [The Late Fall Edition]</h3>
+      <p class="countdown-modal__deadline" id="countdownDeadline">Unlocks at 2026/01/17 23:00</p>
+
+      <div class="countdown-modal__timer" id="countdownTimer" aria-live="polite">
+        <span><strong id="cdDays">00</strong><small>Days</small></span>
+        <span><strong id="cdHours">00</strong><small>Hours</small></span>
+        <span><strong id="cdMins">00</strong><small>Minutes</small></span>
+        <span><strong id="cdSecs">00</strong><small>Seconds</small></span>
+      </div>
+
+      <p class="countdown-modal__note" id="countdownText">Download button unlocks when the countdown ends.</p>
+      <a id="countdownCta" class="countdown-modal__cta" data-href="https://pan.quark.cn/s/c478d9393538" aria-disabled="true">Download locked</a>
+    </div>
+  </div>
+
 
   <!-- HERO -->
   <section class="hero">
@@ -308,6 +329,73 @@ It’s about understanding it, and letting it exist as it was. "
     <div class="copy">© Bobby Eric 2025</div>
   </footer>
 
+
+  <script>
+    (function () {
+      const modal = document.getElementById("countdownModal");
+      if (!modal) return;
+
+      const overlay = modal.querySelector(".countdown-modal__overlay");
+      const closeBtn = modal.querySelector(".countdown-modal__close");
+      const cta = modal.querySelector("#countdownCta");
+      const note = modal.querySelector("#countdownText");
+      const parts = {
+        days: modal.querySelector("#cdDays"),
+        hours: modal.querySelector("#cdHours"),
+        mins: modal.querySelector("#cdMins"),
+        secs: modal.querySelector("#cdSecs"),
+      };
+
+      const target = new Date("2026-01-17T23:00:00");
+
+      const pad = (val) => String(val).padStart(2, "0");
+
+      function setEnded() {
+        Object.values(parts).forEach((el) => (el.textContent = "00"));
+        note.textContent = "Download is live. Tap the button below to get it.";
+        cta.textContent = "Go to download";
+        cta.classList.add("is-ready");
+        cta.removeAttribute("aria-disabled");
+        cta.href = cta.dataset.href || "#";
+      }
+
+      function tick() {
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          setEnded();
+          return true;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
+
+        parts.days.textContent = pad(days);
+        parts.hours.textContent = pad(hours);
+        parts.mins.textContent = pad(mins);
+        parts.secs.textContent = pad(secs);
+
+        return false;
+      }
+
+      // Init and start interval
+      if (!tick()) {
+        const timerId = setInterval(() => {
+          if (tick()) clearInterval(timerId);
+        }, 1000);
+      }
+
+      const close = () => modal.classList.remove("active");
+      overlay.addEventListener("click", close);
+      closeBtn.addEventListener("click", close);
+
+      modal.classList.add("active");
+    })();
+  </script>
 
   <script>
     (function () {
