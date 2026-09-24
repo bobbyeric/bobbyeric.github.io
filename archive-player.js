@@ -114,7 +114,16 @@
       row.classList.add("track-row--clickable");
     });
 
-    if (!tracks.length) return;
+    if (!tracks.length) {
+      player.classList.add("is-unavailable");
+      trackTitleEl.textContent = "Audio unavailable";
+      playButtons.forEach((btn) => { btn.disabled = true; });
+      if (prevButton) prevButton.disabled = true;
+      if (nextButton) nextButton.disabled = true;
+      progress.disabled = true;
+      if (focusRoot) focusRoot.removeAttribute("tabindex");
+      return;
+    }
 
     let currentIndex = 0;
 
@@ -160,7 +169,7 @@
 
     tracklist.addEventListener("click", (event) => {
       const row = event.target.closest(".track-row");
-      if (!row) return;
+      if (!row || row.dataset.trackIndex === undefined) return;
       const index = Number(row.dataset.trackIndex || 0);
       loadTrack(index, true);
     });

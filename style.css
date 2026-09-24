@@ -115,26 +115,6 @@ body{
 }
 
 
-/* ===== Immersive Hero (All devices) ===== */
-
-.hero{
-  width: 100%;
-  height: 100svh;              /* 手机真实全屏 */
-  min-height: 100vh;           /* 桌面全屏 */
-  background-image: url("img/hero-desktop.jpg");
-  background-size: cover;      /* 沉浸式核心 */
-  background-repeat: no-repeat;
-  background-position: center 38%; /* 关键：安全视觉中心 */
-  background-color: #000;
-}
-
-/* 手机端可单独微调裁切中心（可选） */
-@media (max-width: 768px){
-  .hero{
-    background-image: url("img/hero-mobile.jpg"); /* 强烈建议 */
-    background-position: center 45%;
-  }
-}
 .section{
   background: rgba(15,14,13,0.08); /* 别用 0，给一点点底色更稳 */
   backdrop-filter: blur(2px);
@@ -164,12 +144,20 @@ body::before{
   src: url("fonts/ChalkboardSE-Bold-03_0.ttf") format("truetype");
 }
 
+@font-face{
+  font-family: "Dancing Script";
+  src: url("fonts/DancingScript.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 .section{
   font-family: "fonts", serif;
 }
 
 .section h2{
-  color: #e06d14;          /* Fall 暖米色 */
+  color: #e06d14;
   letter-spacing: 0.05em;
 }
 
@@ -177,57 +165,15 @@ body::before{
   font-size: clamp(24px, 6vw, 40px);
 }
 
-/* ===== Falling Leaves ===== */
-.leaves {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 50; /* 在背景之上、内容之下（如果你内容被挡，改小一点） */
-  overflow: hidden;
-}
-
-.leaf {
-  position: absolute;
-  top: -12vh;
-  width: var(--size);
-  height: calc(var(--size) * 0.7);
-  left: var(--x);
-  opacity: var(--op);
-  transform: translate3d(0,0,0) rotate(var(--rot));
-  border-radius: 40% 60% 50% 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), rgba(255,255,255,0) 55%),
-              linear-gradient(135deg, rgba(230,170,90,.95), rgba(150,70,35,.9));
-  filter: blur(0.2px);
-  animation:
-    leaf-fall var(--dur) linear var(--delay) infinite,
-    leaf-sway calc(var(--dur) * 0.55) ease-in-out var(--delay) infinite alternate,
-    leaf-spin calc(var(--dur) * 0.7) linear var(--delay) infinite;
-}
-
-@keyframes leaf-fall {
-  to { transform: translate3d(0, 120vh, 0) rotate(var(--rot)); }
-}
-
-@keyframes leaf-sway {
-  from { margin-left: -22px; }
-  to   { margin-left:  22px; }
-}
-
-@keyframes leaf-spin {
-  from { rotate: 0deg; }
-  to   { rotate: 360deg; }
-}
-
-/* 尊重系统“减少动态效果” */
-@media (prefers-reduced-motion: reduce) {
-  .leaves { display: none; }
-}
-
 /* ===== Album Modal ===== */
 .album-modal{
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 }
 
 
@@ -240,18 +186,76 @@ body::before{
 
 .album-modal__content{
   position: relative;
-  max-width: 480px;
-  margin: 10vh auto;
+  flex: none;
+  width: min(92vw, calc(100dvh - 32px), 520px);
+  aspect-ratio: 1 / 1;
+  margin: 0;
   background: rgba(20,18,16,0.95);
   padding: 32px;
   color: #f0e6d6;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.album-modal__scroll{
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 12px;
+  scrollbar-gutter: stable;
+}
+
+@supports (-moz-appearance: none){
+  .album-modal__scroll{
+    scrollbar-width: thin;
+    scrollbar-color: #bd855f rgba(255,232,206,.1);
+  }
+}
+
+.album-modal__scroll::-webkit-scrollbar{
+  width: 10px;
+}
+
+.album-modal__scroll::-webkit-scrollbar-track{
+  background: rgba(255,232,206,.1);
+  border: 1px solid rgba(255,232,206,.12);
+  border-radius: 999px;
+}
+
+.album-modal__scroll::-webkit-scrollbar-thumb{
+  background: linear-gradient(180deg, #e8bb8e, #b97750);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.album-modal__scroll::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(180deg, #f6d0a8, #d18d62) padding-box;
+}
+
+.album-modal__scroll::-webkit-scrollbar-thumb:active{
+  background: linear-gradient(180deg, #f8d8b8, #e2a479) padding-box;
+}
+
+.album-modal__scroll h3{
+  margin: 0 32px 14px 0;
+}
+
+.album-modal__scroll p{
+  margin: 0;
+  white-space: pre-line;
+  line-height: 1.55;
 }
 
 .album-modal__close{
   position: absolute;
   top: 12px;
   right: 16px;
+  z-index: 1;
   background: none;
   border: none;
   color: #fff;
@@ -266,6 +270,8 @@ body::before{
 
 .download-btn{
   display: inline-block;
+  align-self: flex-start;
+  flex: none;
   padding: 10px 18px;
   border: 1px solid #e6d3b1;
   color: #e6d3b1;
@@ -290,12 +296,25 @@ body::before{
 }
 
 .album-modal__content{
-  transform: translateY(10px);
+  transform: translateY(12px) scale(.96);
   transition: transform .25s ease;
 }
 
 .album-modal.active .album-modal__content{
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  animation: album-card-pop .46s cubic-bezier(.2,.8,.25,1) both;
+}
+
+@keyframes album-card-pop{
+  0%{ transform: translateY(24px) scale(.88) rotate(-1deg); }
+  68%{ transform: translateY(-4px) scale(1.025) rotate(.25deg); }
+  100%{ transform: translateY(0) scale(1) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .album-modal,
+  .album-modal__content{ transition: none; }
+  .album-modal.active .album-modal__content{ animation: none; }
 }
 
 .album-modal__content{
@@ -304,177 +323,16 @@ body::before{
     var(--cover) center / cover no-repeat;
 }
 
-/* ===== Countdown Modal ===== */
-.countdown-modal{
-  position: fixed;
-  inset: 0;
-  z-index: 260;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s ease;
-}
-
-.countdown-modal.active{
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.countdown-modal__overlay{
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.72);
-  backdrop-filter: blur(8px);
-}
-
-.countdown-modal__card{
-  position: relative;
-  max-width: 540px;
-  width: min(90vw, 540px);
-  aspect-ratio: 1 / 1; /* square to match provided artwork ratio */
-  padding: 32px 28px 26px;
-  border-radius: 14px;
-  color: #f8f1e7;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  overflow: hidden;
-  max-height: 92vh;
-  background:
-    linear-gradient(135deg, rgba(12,10,9,0.82), rgba(18,16,14,0.86)),
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 42%),
-    url("img/countdown-bg.jpg") center / cover no-repeat;
-  font-family: "fonts", serif;
-}
-
-.countdown-modal__card::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(145deg, rgba(224,109,20,0.22), rgba(224,109,20,0));
-  mix-blend-mode: screen;
-}
-
-.countdown-modal__close{
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0.35);
-  color: #f5f1eb;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
-}
-
-.countdown-modal__close:hover{
-  background: rgba(0,0,0,0.5);
-  transform: translateY(-1px);
-}
-
-.countdown-modal__eyebrow{
-  display: inline-block;
-  padding: 6px 10px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.05);
-  margin-bottom: 14px;
-}
-
-.countdown-modal__title{
-  margin: 0 0 6px;
-  font-size: clamp(22px, 4vw, 28px);
-  letter-spacing: 0.06em;
-}
-
-.countdown-modal__deadline{
-  margin: 0 0 18px;
-  color: rgba(248,241,231,0.82);
-  font-size: 14px;
-}
-
-.countdown-modal__timer{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0 0 14px;
-}
-
-.countdown-modal__timer span{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 8px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.countdown-modal__timer strong{
-  font-size: clamp(18px, 4vw, 24px);
-  letter-spacing: 0.06em;
-  font-variant-numeric: tabular-nums;
-}
-
-.countdown-modal__timer small{
-  margin-top: 1px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: rgba(248,241,231,0.7);
-}
-
-.countdown-modal__note{
-  margin: 6px 0 16px;
-  color: rgba(248,241,231,0.86);
-  line-height: 1.5;
-}
-
-.countdown-modal__cta{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-width: 180px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: linear-gradient(120deg, #e06d14, #f1a13b);
-  color: #0f0e0d;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-}
-
-.countdown-modal__cta[aria-disabled="true"]{
-  pointer-events: none;
-  filter: grayscale(0.4) brightness(0.85);
-  opacity: 0.7;
-}
-
-.countdown-modal__cta.is-ready:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(224,109,20,0.35);
-}
-
 @media (max-width: 520px){
-  .countdown-modal__card{
-    padding: 22px 18px 18px;
-    aspect-ratio: auto;
-    width: min(92vw, 420px);
-    max-height: 88vh;
-    overflow: auto;
+  .album-modal__content{
+    padding: 22px;
+  }
+  .album-modal__scroll h3{
+    font-size: 20px;
+  }
+  .album-modal__scroll p,
+  .album-modal__scroll li{
+    font-size: 13px;
   }
 }
 
@@ -877,11 +735,6 @@ html::before{
 .footer{
   position: relative;
   z-index: 1;
-}
-
-/* 叶子：在背景之上、内容之下（你想让叶子盖在内容上就把 z-index 调大） */
-.leaves{
-  z-index: 2;
 }
 
 /* 噪点层：别压到菜单上，否则会混色发脏 */
@@ -1299,6 +1152,7 @@ html{
 .strip:nth-child(5){ --strip-i: 4; }
 .strip:nth-child(6){ --strip-i: 5; }
 .strip:nth-child(7){ --strip-i: 6; }
+.strip:nth-child(8){ --strip-i: 7; }
 
 @keyframes strip-reveal{
   from{ transform: translateX(-14px); opacity: 0; }
@@ -1636,6 +1490,12 @@ body,
   box-shadow: 0 30px 90px rgba(0,0,0,.35);
 }
 
+.album-player.is-unavailable button,
+.album-player.is-unavailable input{
+  opacity: .45;
+  cursor: not-allowed;
+}
+
 .album-player__top{
   display: flex;
   align-items: center;
@@ -1874,4 +1734,380 @@ body,
     display: none;
   }
 
+}
+
+/* ===== Dear, Bobby home era ===== */
+html:not(.archive-page)::before{
+  background:
+    radial-gradient(circle at 68% 18%, rgba(180,91,40,.24), transparent 36%),
+    linear-gradient(145deg, #1b100e 0%, #2c1711 48%, #130d0d 100%);
+}
+
+body.home-page{
+  color: #f3e6d8;
+}
+
+body.home-page .hero{
+  min-height: 100svh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  padding: 112px 6vw 78px;
+  background: #1a100e;
+}
+
+body.home-page .hero::before{
+  content: "";
+  position: absolute;
+  inset: -40px;
+  z-index: -2;
+  background: url("img/dear-bobby.png") center 43% / cover no-repeat;
+  filter: blur(34px) brightness(.47) saturate(1.12);
+  transform: scale(1.04);
+}
+
+body.home-page .hero::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(18,10,10,.86) 0%, rgba(22,11,9,.64) 48%, rgba(20,10,9,.46) 100%),
+    linear-gradient(0deg, rgba(19,11,11,.88), transparent 24%, transparent 76%, rgba(19,11,11,.5));
+}
+
+.hero__inner{
+  position: relative;
+  z-index: 3;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .9fr);
+  align-items: center;
+  gap: clamp(36px, 6vw, 100px);
+}
+
+.hero__copy{
+  padding-bottom: 20px;
+}
+
+.hero__eyebrow,
+.hero__release,
+.hero__bottom{
+  font-family: "Dancing Script", "Segoe Script", cursive;
+  letter-spacing: .01em;
+}
+
+.hero__eyebrow{
+  margin: 0 0 22px;
+  color: #e9b27c;
+  font-size: 24px;
+}
+
+.hero__copy h1{
+  margin: 0;
+  color: #fff2e4;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(68px, 8vw, 132px);
+  font-weight: 400;
+  letter-spacing: -.065em;
+  line-height: .91;
+  text-shadow: 0 8px 50px rgba(0,0,0,.35);
+}
+
+.hero__copy h1 em{
+  color: #e8ac73;
+  font-weight: 400;
+}
+
+.hero__release{
+  margin: 30px 0 38px;
+  color: rgba(255,235,217,.78);
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.hero__actions{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.hero__button,
+.hero__text-link{
+  font-family: "Dancing Script", "Segoe Script", cursive;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  text-decoration: none;
+}
+
+.hero__button{
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 16px 20px;
+  color: #22100d;
+  background: #edbf91;
+  border: 1px solid #edbf91;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.hero__button:hover{
+  background: #ffdbc0;
+  transform: translateY(-2px);
+}
+
+.hero__text-link{
+  padding: 10px 0;
+  color: #f6d5b6;
+  border-bottom: 1px solid rgba(246,213,182,.6);
+}
+
+.hero__text-link:hover{
+  color: #fff2e4;
+}
+
+.hero__artwork{
+  width: min(100%, 560px);
+  justify-self: end;
+  padding: 12px;
+  background: rgba(255,229,202,.06);
+  border: 1px solid rgba(255,223,190,.22);
+  box-shadow: 0 35px 100px rgba(0,0,0,.55);
+  transform: rotate(1.5deg);
+}
+
+.hero__artwork img{
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.hero__bottom{
+  position: absolute;
+  z-index: 3;
+  left: 6vw;
+  right: 6vw;
+  bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255,225,198,.58);
+  font-size: 16px;
+  border-top: 1px solid rgba(255,226,197,.28);
+  padding-top: 14px;
+}
+
+/* Letter paper drifts through the opening scene once. */
+.letterfall{
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.letterfall__sheet{
+  position: absolute;
+  top: -18vh;
+  left: var(--left);
+  width: var(--width);
+  aspect-ratio: 3 / 4;
+  opacity: 0;
+  background: #f5e6ca;
+  border: 1px solid rgba(116,69,43,.28);
+  border-radius: 1px;
+  box-shadow: 1px 7px 14px rgba(10,5,4,.25);
+  filter: blur(var(--blur));
+  animation: letterfall-drift var(--duration) linear var(--delay) both;
+  will-change: transform, opacity;
+}
+
+.letterfall__sheet::before{
+  content: "";
+  position: absolute;
+  inset: 15% 12% 12%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 8px,
+    rgba(105,77,59,.24) 8px 9px,
+    transparent 9px 13px
+  );
+}
+
+.letterfall__sheet::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24%;
+  aspect-ratio: 1;
+  background: linear-gradient(225deg, rgba(125,75,44,.22) 50%, rgba(255,251,237,.9) 50%);
+  box-shadow: -1px 1px 2px rgba(50,27,16,.1);
+}
+
+.letterfall__sheet:nth-child(3n){
+  background: #e8d4b7;
+}
+
+.letterfall__sheet:nth-child(5n){
+  background: #fff0d8;
+}
+
+@keyframes letterfall-drift{
+  0%{
+    opacity: 0;
+    transform: translate3d(0, -12vh, 0) rotate(var(--start-angle)) rotateY(0deg);
+  }
+  8%{ opacity: var(--opacity); }
+  86%{ opacity: var(--opacity); }
+  100%{
+    opacity: 0;
+    transform: translate3d(var(--drift), 130vh, 0) rotate(var(--end-angle)) rotateY(var(--flip));
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .letterfall{ display: none; }
+}
+
+body.home-page .section{
+  background: rgba(28,15,13,.88);
+  border-top-color: rgba(237,191,145,.2);
+  backdrop-filter: none;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+body.home-page .section h2{
+  color: #edbf91;
+  font-family: "Dancing Script", "Segoe Script", cursive;
+  letter-spacing: .01em;
+}
+
+body.home-page .menu-nav a,
+body.home-page .sound-toggle{
+  font-family: "Dancing Script", "Segoe Script", cursive;
+  letter-spacing: .01em;
+}
+
+body.home-page .menu-nav a{
+  font-size: 31px;
+}
+
+body.home-page .sound-toggle{
+  font-size: 18px;
+  text-transform: none;
+}
+
+body.home-page .section .card img{
+  border: 1px solid rgba(237,191,145,.17);
+  box-shadow: 0 16px 38px rgba(0,0,0,.22);
+}
+
+body.home-page .section .title{
+  font-size: 17px;
+}
+
+body.home-page .year,
+body.home-page .footer{
+  color: #bda694;
+}
+
+body.home-page .merch{
+  background: rgba(38,20,15,.9);
+}
+
+body.home-page .footer{
+  background: #160e0d;
+}
+
+body.home-page .menu-panel{
+  background: #5b2e1c;
+}
+
+@media (min-width: 769px){
+  body.home-page .top-nav{
+    background: rgba(56,26,18,.78);
+    border: 1px solid rgba(237,191,145,.25);
+    border-radius: 0;
+    box-shadow: 0 8px 30px rgba(0,0,0,.22);
+    text-transform: none;
+  }
+  body.home-page .top-nav a{
+    font-family: "Dancing Script", "Segoe Script", cursive;
+    font-size: clamp(19px, 1.9vw, 25px);
+    font-style: normal;
+    letter-spacing: .01em;
+    color: #f5dfcc;
+  }
+  body.home-page .top-nav a:hover{
+    color: #ffc995;
+  }
+}
+
+@media (max-width: 900px){
+  body.home-page .hero{
+    padding: 106px 6vw 76px;
+  }
+  .hero__inner{
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .hero__copy h1{
+    font-size: clamp(60px, 8.5vw, 90px);
+  }
+}
+
+@media (max-width: 680px){
+  body.home-page .hero{
+    min-height: 100svh;
+    padding: 92px 7vw 80px;
+  }
+  body.home-page .hero::after{
+    background: linear-gradient(180deg, rgba(18,10,10,.76), rgba(18,10,10,.35) 45%, rgba(18,10,10,.86));
+  }
+  .hero__inner{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero__copy{
+    order: 2;
+    padding-bottom: 0;
+  }
+  .hero__artwork{
+    order: 1;
+    width: min(70vw, 340px);
+    justify-self: center;
+    padding: 7px;
+  }
+  .hero__eyebrow{
+    margin-bottom: 10px;
+  }
+  .hero__copy h1{
+    font-size: clamp(64px, 13vw, 90px);
+  }
+  .hero__release{
+    margin: 18px 0 24px;
+  }
+  .hero__bottom{
+    left: 7vw;
+    right: 7vw;
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 390px){
+  .hero__artwork{
+    width: min(62vw, 260px);
+  }
+  .hero__copy h1{
+    font-size: 60px;
+  }
+  .hero__actions{
+    gap: 14px;
+  }
 }

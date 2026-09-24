@@ -4,28 +4,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bobby Eric | Official Website</title>
-  <meta name="description" content="Official website of Bobby Eric featuring music, albums, and archives.">
+  <title>Dear, Bobby | Bobby Eric</title>
+  <meta name="description" content="Bobby Eric's official website. Explore Dear, Bobby and the music archive.">
   <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="Bobby Eric | Official Website">
-  <meta property="og:description" content="Music, albums, and archives by Bobby Eric.">
-  <meta property="og:image" content="https://bobbyeric.github.io/og-image.png">
+  <meta property="og:title" content="Dear, Bobby | Bobby Eric">
+  <meta property="og:description" content="Explore Dear, Bobby and the music archive by Bobby Eric.">
+  <meta property="og:image" content="https://bobbyeric.github.io/img/dear-bobby.png">
   <meta property="og:url" content="https://bobbyeric.github.io">
   <meta property="og:type" content="website">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Bobby Eric | Official Website">
-  <meta name="twitter:description" content="Music, albums, and archives by Bobby Eric.">
-  <meta name="twitter:image" content="https://bobbyeric.github.io/og-image.png">
+  <meta name="twitter:title" content="Dear, Bobby | Bobby Eric">
+  <meta name="twitter:description" content="Explore Dear, Bobby and the music archive by Bobby Eric.">
+  <meta name="twitter:image" content="https://bobbyeric.github.io/img/dear-bobby.png">
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css?v=1">
+  <link rel="icon" type="image/png" href="img/dear-bobby-be-favicon.png">
+  <link rel="stylesheet" href="style.css?v=11">
 
 
 </head>
 
-<body>
+<body class="home-page">
   <header class="site-header">
     <button class="menu-btn" id="menuBtn" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -33,7 +33,7 @@
 
     <nav class="top-nav" aria-label="Primary">
       <a href="#Merch">Merch</a>
-      <a href="archive.html">Archive</a>
+      <a href="archive.html#dearbobby">Archive</a>
       <a href="#projects">Projects</a>
       <a href="mailto:kekele2578@gmail.com">Contact</a>
     </nav>
@@ -47,7 +47,7 @@
 
       <nav class="menu-nav">
       <a href="#Merch">Merch</a>
-      <a href="archive.html">Archive</a>
+      <a href="archive.html#dearbobby">Archive</a>
       <a href="#projects">Projects</a>
       <a href="mailto:kekele2578@gmail.com">Contact</a>
         <div class="menu-social">
@@ -72,30 +72,26 @@
     </div>
   </div>
 
-  <div class="countdown-modal" id="countdownModal" role="dialog" aria-modal="true" aria-labelledby="countdownTitle">
-    <div class="countdown-modal__overlay"></div>
-    <div class="countdown-modal__card">
-      <button class="countdown-modal__close" aria-label="Close countdown">×</button>
-
-      <div class="countdown-modal__eyebrow">Download unlocks soon</div>
-      <h3 class="countdown-modal__title" id="countdownTitle">Fall (Bobby's Version) [The Late Fall Edition]</h3>
-      <p class="countdown-modal__deadline" id="countdownDeadline">Unlocks at 2026/01/17 23:00</p>
-
-      <div class="countdown-modal__timer" id="countdownTimer" aria-live="polite">
-        <span><strong id="cdDays">00</strong><small>Days</small></span>
-        <span><strong id="cdHours">00</strong><small>Hours</small></span>
-        <span><strong id="cdMins">00</strong><small>Minutes</small></span>
-        <span><strong id="cdSecs">00</strong><small>Seconds</small></span>
-      </div>
-
-      <p class="countdown-modal__note" id="countdownText">Download button unlocks when the countdown ends.</p>
-      <a id="countdownCta" class="countdown-modal__cta" data-href="https://pan.quark.cn/s/c478d9393538" aria-disabled="true">Download locked</a>
-    </div>
-  </div>
-
-
   <!-- HERO -->
   <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <p class="hero__eyebrow">Bobby Eric · Write to me when it's quiet.</p>
+        <h1>Dear,<br><em>Bobby</em></h1>
+        <p class="hero__release">The album · February 20, 2026</p>
+        <div class="hero__actions">
+          <a class="hero__button" href="archive.html#dearbobby">Explore the album <span aria-hidden="true">↗</span></a>
+          <a class="hero__text-link" href="#archive">View archive <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero__artwork">
+        <img src="img/dear-bobby.png" alt="Dear, Bobby album cover" fetchpriority="high">
+      </div>
+    </div>
+    <div class="hero__bottom" aria-hidden="true">
+      <span>Dear, Bobby</span>
+      <span>2026</span>
+    </div>
   </section>
 
   <!-- ARCHIVE -->
@@ -252,6 +248,17 @@ It’s about understanding it, and letting it exist as it was. "
           </div>
         </div>
 
+        <div class="card" data-title="Dear, Bobby"
+          data-desc="Dear, Bobby is a letter written in the quiet, when the words left unsaid finally have room to surface. It holds memories with tenderness and looks at change without rushing to explain it. At its heart, the album is about learning to speak honestly to yourself—and leaving space for the person you’re still becoming."
+          data-tracks="*august; cardigan; mirrorball; exile; Dear Reader"
+          data-download="archive.html#dearbobby">
+          <img src="img/dear-bobby.png" alt="Dear, Bobby album cover" loading="lazy" decoding="async">
+          <div class="meta">
+            <div class="title">Dear, Bobby</div>
+            <div class="year">2026-02-20</div>
+          </div>
+        </div>
+
 
       </div>
     </div>
@@ -326,132 +333,23 @@ It’s about understanding it, and letting it exist as it was. "
       </a>
     </div>
 
-    <div class="copy">© Bobby Eric 2025</div>
+    <div class="copy">© Bobby Eric 2026</div>
   </footer>
-
-
-  <script>
-    (function () {
-      const modal = document.getElementById("countdownModal");
-      if (!modal) return;
-
-      const overlay = modal.querySelector(".countdown-modal__overlay");
-      const closeBtn = modal.querySelector(".countdown-modal__close");
-      const cta = modal.querySelector("#countdownCta");
-      const note = modal.querySelector("#countdownText");
-      const parts = {
-        days: modal.querySelector("#cdDays"),
-        hours: modal.querySelector("#cdHours"),
-        mins: modal.querySelector("#cdMins"),
-        secs: modal.querySelector("#cdSecs"),
-      };
-
-      const target = new Date("2026-01-17T23:00:00");
-
-      const pad = (val) => String(val).padStart(2, "0");
-
-      function setEnded() {
-        Object.values(parts).forEach((el) => (el.textContent = "00"));
-        note.textContent = "Download is live. Tap the button below to get it.";
-        cta.textContent = "Go to download";
-        cta.classList.add("is-ready");
-        cta.removeAttribute("aria-disabled");
-        cta.href = cta.dataset.href || "#";
-      }
-
-      function tick() {
-        const now = new Date();
-        const diff = target - now;
-
-        if (diff <= 0) {
-          setEnded();
-          return true;
-        }
-
-        const totalSeconds = Math.floor(diff / 1000);
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
-        const mins = Math.floor((totalSeconds % 3600) / 60);
-        const secs = totalSeconds % 60;
-
-        parts.days.textContent = pad(days);
-        parts.hours.textContent = pad(hours);
-        parts.mins.textContent = pad(mins);
-        parts.secs.textContent = pad(secs);
-
-        return false;
-      }
-
-      // Init and start interval
-      if (!tick()) {
-        const timerId = setInterval(() => {
-          if (tick()) clearInterval(timerId);
-        }, 1000);
-      }
-
-      const close = () => modal.classList.remove("active");
-      overlay.addEventListener("click", close);
-      closeBtn.addEventListener("click", close);
-
-      modal.classList.add("active");
-    })();
-  </script>
-
-  <script>
-    (function () {
-      // 如果用户开启了“减少动态效果”，就不生成
-      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduceMotion) return;
-
-      // 创建容器
-      const layer = document.createElement("div");
-      layer.className = "leaves";
-      document.body.appendChild(layer);      const COUNT = 100; // ????????? 24~32????? 10~16
-
-      function rand(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      for (let i = 0; i < COUNT; i++) {
-        const leaf = document.createElement("span");
-        leaf.className = "leaf";
-
-        const size = rand(10, 22);            // px
-        const x = rand(0, 100);               // vw%
-        const dur = rand(10, 18);              // s
-        const delay = rand(0, 8);             // s
-        const rot = rand(-25, 25);            // deg
-        const op = rand(0.18, 0.75);          // opacity
-
-        leaf.style.setProperty("--size", size + "px");
-        leaf.style.setProperty("--x", x + "vw");
-        leaf.style.setProperty("--dur", dur + "s");
-        leaf.style.setProperty("--delay", delay + "s");
-        leaf.style.setProperty("--rot", rot + "deg");
-        leaf.style.setProperty("--op", op);
-
-        // 随机一点色相差异（更自然）
-        const hue = rand(-12, 12);
-        leaf.style.filter = `hue-rotate(${hue}deg)`;
-
-        layer.appendChild(leaf);
-      }
-    })();
-  </script>
 
   <div class="album-modal" id="albumModal">
     <div class="album-modal__overlay"></div>
 
     <div class="album-modal__content">
-      <button class="album-modal__close">×</button>
+      <button class="album-modal__close" aria-label="Close album details">×</button>
 
-      <h3 id="modalTitle"></h3>
-      <p id="modalDesc"></p>
-
-      <ul id="modalTracks"></ul>
+      <div class="album-modal__scroll">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <ul id="modalTracks"></ul>
+      </div>
 
       <a id="modalDownload" class="download-btn" target="_blank">
-        Download
+        View Album
       </a>
     </div>
   </div>
@@ -462,14 +360,16 @@ It’s about understanding it, and letting it exist as it was. "
     const tracksEl = document.getElementById("modalTracks");
     const downloadEl = document.getElementById("modalDownload");
 
-    document.querySelectorAll(".card").forEach(card => {
+    document.querySelectorAll(".card[data-desc]").forEach(card => {
       card.addEventListener("click", () => {
         titleEl.textContent = card.dataset.title;
         descEl.textContent = card.dataset.desc;
 
         /* ===== 生成曲目（自动编号 + 主打高亮）===== */
         tracksEl.innerHTML = "";
-        card.dataset.tracks.split(";").forEach((track, i) => {
+        const tracks = (card.dataset.tracks || "").split(";").filter(track => track.trim());
+        tracksEl.hidden = tracks.length === 0;
+        tracks.forEach((track, i) => {
           const li = document.createElement("li");
           const isLead = track.trim().startsWith("*");
           const name = track.replace("*", "").trim();
@@ -482,6 +382,7 @@ It’s about understanding it, and letting it exist as it was. "
 
 
         downloadEl.href = card.dataset.download;
+        modal.querySelector(".album-modal__scroll").scrollTop = 0;
         modal.querySelector(".album-modal__content")
           .style.setProperty("--cover", `url(${card.querySelector("img").src})`);
 
@@ -499,6 +400,7 @@ It’s about understanding it, and letting it exist as it was. "
   </audio>
   <script src="bgm.js"></script>
   <script src="menu.js"></script>
+  <script src="letterfall.js"></script>
 
 </body>
 
