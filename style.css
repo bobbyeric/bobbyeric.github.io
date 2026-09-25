@@ -1971,6 +1971,31 @@ body.home-page .hero::after{
   }
 }
 
+@media (max-width: 768px){
+  .letterfall__sheet{
+    filter: none;
+    box-shadow: none;
+    animation-name: letterfall-drift-mobile;
+  }
+
+  .letterfall__sheet::after{
+    box-shadow: none;
+  }
+}
+
+@keyframes letterfall-drift-mobile{
+  0%{
+    opacity: 0;
+    transform: translate(0, -12vh) rotate(var(--start-angle));
+  }
+  8%{ opacity: var(--opacity); }
+  86%{ opacity: var(--opacity); }
+  100%{
+    opacity: 0;
+    transform: translate(var(--drift), 130vh) rotate(var(--end-angle));
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .letterfall{ display: none; }
 }
